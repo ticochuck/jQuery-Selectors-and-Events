@@ -9,7 +9,7 @@ function Gallery(url, title, description, keyword, horn) {
   this.description = description;
   this.keyword = keyword;
   this.horn = horn;
-  newData.push(this);
+  newData.push(this.keyword);
 }
 
 Gallery.prototype.render = function () {
@@ -21,37 +21,25 @@ Gallery.prototype.render = function () {
   $galleryClone.removeClass('photo-template');
   $galleryClone.attr('class', this.keyword);
   $('main').append($galleryClone);
+  // $('.photo-template').remove();
 };
 
+
+$(document).ready(function() {
 
 $('select').on('change', displayImages);
 
 function displayImages() {
   let selected = $(this).val();
-  // $('option').attr('value', this.keyword);
   console.log(selected);
-  console.log(keywords);
-  
-  keywords.forEach((key, idx) => {
-    console.log(key);
-    if (key !== selected) {
-      $('section').fadeOut();
-    } 
-    })
-
-  if ($('section').hasClass($(this).val)) {
-    $('section').hide(); 
+  if (selected === 'default') {
+    $('section').fadeIn();
+    $('.photo-template').fadeOut();
+  } else {
+    $('section').fadeOut();
+    $('.' + selected).fadeIn();
   }
-};
-
-// $('.${this.keyword}').fadeIn();
-  
-//   $(option).fadeOut();
-
-$(document).ready(function() {
-
-
-
+}
 $.ajax('/data/page-1.json')
   .then(data => {
     data.forEach((object, idx) => {

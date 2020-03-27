@@ -46,11 +46,11 @@ Why are we implementing this feature?
 
 _Estimate of time needed to complete: 1.5 hrs_
 
-_Start time: 1_
+_Start time: not sure_
 
-_Finish time: 1_
+_Finish time: not sure_
 
-_Actual time needed to complete: 1_
+_Actual time needed to complete: a long time. More than 2.5 hours_
 
 ## Feature #3: Style the application
 
@@ -67,7 +67,7 @@ _Actual time needed to complete: 1_
 - Style your application using floats.
 - Utilize at least one Google font.
 
-_Estimate of time needed to complete: 1.5 hrs_
+_Estimate of time needed to complete: 1 hr_
 
 _Start time: 1_
 
@@ -90,26 +90,14 @@ Given that a user is presented with sort options When the user clicks on one opt
 Add the ability for the user to sort the images by either title or by number of horns.
 Sort the images by one of the properties on page load. This should also apply to the second page of images.
 
-_Estimate of time needed to complete: 1.5 hrs_
+_Estimate of time needed to complete: time_
 
-_Start time: 1_
+_Start time: time_
 
-_Finish time: 1_
+_Finish time: time_
 
-_Actual time needed to complete: 1_
+_Actual time needed to complete: time_
 
-__A question within the context of today's lab assignment__
-What is the purpose of doing the clone html? Instead of doing that, I was doing this to append to the DOM: 
-```
- $('#photo-template').append(`<div> <h2>${object.title}</h2>, <img src="${object.image_url}">, <br> <span>${object.description}</span> <br> <span> ${object.keyword}</span></div>` );
- ```
-
-
-__An observation about the lab assignment, or related 'Ah-hah!' moment__
-I was creating an event listener for the select on click. It took me a while to realize that I needed to use on change. 
-
-__How long you spent working on this assignment__
-3 hours +
 
 # References
 
@@ -117,6 +105,7 @@ __How long you spent working on this assignment__
 
 - https://github.com/codefellows/seattle-301n17/blob/master/class-02/demo/read-json/app.js
 
+- https://stackoverflow.com/questions/743994/how-do-i-select-an-element-in-jquery-by-using-a-variable-for-the-id 
 
 # Author 
 - Chuck Li Villalobos
