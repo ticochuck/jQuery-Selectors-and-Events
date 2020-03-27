@@ -4,7 +4,6 @@
 
 In labs 2 and 3, you and your partner(s) will be using the provided JSON files to create a photo gallery. You will style it using floats.
 
-
 ## Feature #1: Display images
 
 **Why are we implementing this feature?**
@@ -100,17 +99,23 @@ _Finish time: 1_
 _Actual time needed to complete: 1_
 
 __A question within the context of today's lab assignment__
+What is the purpose of doing the clone html? Instead of doing that, I was doing this to append to the DOM: 
+```
+ $('#photo-template').append(`<div> <h2>${object.title}</h2>, <img src="${object.image_url}">, <br> <span>${object.description}</span> <br> <span> ${object.keyword}</span></div>` );
+ ```
 
 
 __An observation about the lab assignment, or related 'Ah-hah!' moment__
-
+I was creating an event listener for the select on click. It took me a while to realize that I needed to use on change. 
 
 __How long you spent working on this assignment__
-
+3 hours +
 
 # References
 
 - https://www.w3schools.com/jsref/jsref_includes_array.asp
+
+- https://github.com/codefellows/seattle-301n17/blob/master/class-02/demo/read-json/app.js
 
 
 # Author 

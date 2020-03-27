@@ -2,14 +2,14 @@ img {
   width: 250px;
 }
 
-section {
+/* section {
   float: left;
   text-align: center;
   line-height: 30px; 
   
-}
+} */
 
-div {
+section {
   width: 300px;
   border: solid 1px red;
   float: left;
