@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 
 const keywords = [];
 const newData = [];
 
-function newData2(url, title, description, keyword, horn) {
+function Gallery(url, title, description, keyword, horn) {
   this.url = url;
   this.title = title;
   this.description = description;
@@ -12,37 +12,59 @@ function newData2(url, title, description, keyword, horn) {
   newData.push(this);
 }
 
-$(document).ready(function() {
+Gallery.prototype.render = function () {
+  let $galleryClone = $('.photo-template').clone();
+  $galleryClone.find('h2').text(this.title);
+  $galleryClone.find('img').attr('src', this.url);
+  $galleryClone.find('img').attr('alt', this.title);
+  $galleryClone.find('p').text(this.description);
+  $galleryClone.removeClass('photo-template');
+  $galleryClone.attr('class', this.keyword);
+  $('main').append($galleryClone);
+};
 
-$('option').on('click', displayImages);
+
+$('select').on('change', displayImages);
 
 function displayImages() {
-  $('h2').fadeIn();
-}
+  let selected = $(this).val();
+  // $('option').attr('value', this.keyword);
+  console.log(selected);
+  console.log(keywords);
+  
+  keywords.forEach((key, idx) => {
+    console.log(key);
+    if (key !== selected) {
+      $('section').fadeOut();
+    } 
+    })
+
+  if ($('section').hasClass($(this).val)) {
+    $('section').hide(); 
+  }
+};
+
+// $('.${this.keyword}').fadeIn();
+  
+//   $(option).fadeOut();
+
+$(document).ready(function() {
 
 
 
 $.ajax('/data/page-1.json')
   .then(data => {
     data.forEach((object, idx) => {
-      
-      // newData.push(object);
-      new newData2(object.image_url, object.title, object.description, object.keyword, object.horns);
-      
-      $('#photo-template').append(`<div> <h2>${object.title}</h2>, <img src="${object.image_url}">, <br> <span>${object.description}</span> <br> <span> ${object.keyword}</span></div>` );
-      
-      if (keywords.includes(object.keyword)) {
-        // console.log(keywords);  
-      } else {
+      let gallery = new Gallery(object.image_url, object.title, object.description, object.keyword, object.horns);
+      gallery.render();
+
+      if (!keywords.includes(object.keyword)) {
         keywords.push(object.keyword);
       }
     })
+    keywords.sort();
     for (let i = 0; i < keywords.length; i++) {
-
       $('select').append(`<option value="${keywords[i]}">${keywords[i]}</option>`);
     }      
   });
 });
-
-console.log(newData);
-
