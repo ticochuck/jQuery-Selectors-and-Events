@@ -7,15 +7,6 @@ In labs 2 and 3, you and your partner(s) will be using the provided JSON files t
 
 ## Feature #1: Display images
 
-Estimate of time needed to complete: 1.5 hrs
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
-
-
 **Why are we implementing this feature?**
 
 - As a user, I want to view the images on the page so that I can browse the photo collection.
@@ -30,15 +21,16 @@ Actual time needed to complete: _____
 - Each object should become a new instance of a constructor function. Refer to the data to determine the necessary properties.
 - Use jQuery to make a copy of the HTML template of the photo component. For each object, fill in the duplicated template with its properties, then append the copy to the DOM.
 
+_Estimate of time needed to complete: 1.5 hrs_
+
+_Start time: 9:15_
+
+_Finish time: 9:45_
+
+_Actual time needed to complete: 30  minutes_
+
+
 ## Feature #2: Filter images
-
-Estimate of time needed to complete: 1 hr
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
 
 Why are we implementing this feature?
 
@@ -53,15 +45,15 @@ Why are we implementing this feature?
 - Create a \<select> element which contains unique \<option> elements extracted dynamically from the JSON file, one for each keyword.
 - Use an event handler to respond when the user chooses an option from the select menu. Hide all of the images, then show those whose keyword matches the option chosen.
 
+_Estimate of time needed to complete: 1.5 hrs_
+
+_Start time: 1_
+
+_Finish time: 1_
+
+_Actual time needed to complete: 1_
+
 ## Feature #3: Style the application
-
-Estimate of time needed to complete: 1 hr
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
 
 **Why are we implementing this feature?**
 
@@ -76,20 +68,22 @@ Actual time needed to complete: _____
 - Style your application using floats.
 - Utilize at least one Google font.
 
+_Estimate of time needed to complete: 1.5 hrs_
+
+_Start time: 1_
+
+_Finish time: 1_
+
+_Actual time needed to complete: 1_
+
 ## Stretch Goal: Sort the images
-
-Estimate of time needed to complete: _____
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
 
 **Why are we implementing this feature?**
 
 As a user, I want to be able to sort the images so there is an order to how they render.
-What are we going to implement?
+
+**What are we going to implement?**
+
 Given that a user is presented with sort options When the user clicks on one option Then the images should be sorted accordingly
 
 **How are we implementing it?**
@@ -97,8 +91,13 @@ Given that a user is presented with sort options When the user clicks on one opt
 Add the ability for the user to sort the images by either title or by number of horns.
 Sort the images by one of the properties on page load. This should also apply to the second page of images.
 
+_Estimate of time needed to complete: 1.5 hrs_
 
+_Start time: 1_
 
+_Finish time: 1_
+
+_Actual time needed to complete: 1_
 
 __A question within the context of today's lab assignment__
 
@@ -107,3 +106,15 @@ __An observation about the lab assignment, or related 'Ah-hah!' moment__
 
 
 __How long you spent working on this assignment__
+
+
+# References
+
+- https://www.w3schools.com/jsref/jsref_includes_array.asp
+
+
+# Author 
+- Chuck Li Villalobos
+
+# License
+- This project is licensed under the MIT License. 
