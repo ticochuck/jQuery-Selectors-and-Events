@@ -46,7 +46,7 @@ function appendToKeywordsArray() {
 }
 
 function getData() {
-  $.ajax('/data/page-1.json')
+  $.ajax('./data/page-1.json')
   .then(data => {
     data.forEach((object, idx) => {
       let gallery = new Gallery(object);
