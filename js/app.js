@@ -2,7 +2,7 @@
 
 const keywords = [];
 
-function Gallery(object) {
+function Creature(object) {
   this.url = object.image_url;
   this.title = object.title;
   this.description = object.description;
@@ -10,23 +10,12 @@ function Gallery(object) {
   this.horns = object.horns;
 }
 
-Gallery.prototype.render = function () {
-  let $galleryClone = $('.photo-template').clone();
-  $galleryClone.find('h2').text(this.title);
-  $galleryClone.find('img').attr('src', this.url);
-  $galleryClone.find('img').attr('alt', this.title);
-  $galleryClone.find('p').text(this.description);
-  $galleryClone.removeClass('photo-template');
-  $galleryClone.attr('class', this.keyword);
-  $('main').append($galleryClone);
-};
-
 function displayImages() {
   let $selected = $(this).val();
   if ($selected === 'default') {
     $('section').fadeIn();
-    $('.photo-template').hide();
-  } else {
+  } 
+  else {
     $('section').hide();
     $('.' + $selected).fadeIn();
   }
@@ -45,12 +34,21 @@ function appendToKeywordsArray() {
   }
 }
 
+function renderCreatures(object, sourceID, target) {
+  let $target = $(target);
+  let templateMarkUp = $(sourceID).html();
+  let newMarkup = Mustache.render(templateMarkUp, object)
+  $target.append(newMarkup);
+}
+
 function getData() {
-  $.ajax('./data/page-1.json')
+  $.ajax('data/page-1.json')
   .then(data => {
     data.forEach((object, idx) => {
-      let gallery = new Gallery(object);
-      gallery.render();    
+      let gallery = new Creature(object);
+      // gallery.render();
+      renderCreatures(gallery, "#page-1-template", ".targets");
+      // renderCreatures(gallery, "#page-2-template", ".targets");
       appendToSelectMenu(object.keyword);
     })
     appendToKeywordsArray();
