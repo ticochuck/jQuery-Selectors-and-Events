@@ -1,15 +1,13 @@
 'use strict';
 
 const keywords = [];
-const newData = [];
 
-function Gallery(url, title, description, keyword, horn) {
-  this.url = url;
-  this.title = title;
-  this.description = description;
-  this.keyword = keyword;
-  this.horn = horn;
-  newData.push(this.keyword);
+function Gallery(object) {
+  this.url = object.image_url;
+  this.title = object.title;
+  this.description = object.description;
+  this.keyword = object.keyword;
+  this.horns = object.horns;
 }
 
 Gallery.prototype.render = function () {
@@ -21,38 +19,45 @@ Gallery.prototype.render = function () {
   $galleryClone.removeClass('photo-template');
   $galleryClone.attr('class', this.keyword);
   $('main').append($galleryClone);
-  // $('.photo-template').remove();
 };
 
-
-$(document).ready(function() {
-
-$('select').on('change', displayImages);
-
 function displayImages() {
-  let selected = $(this).val();
-  console.log(selected);
-  if (selected === 'default') {
+  let $selected = $(this).val();
+  if ($selected === 'default') {
     $('section').fadeIn();
-    $('.photo-template').fadeOut();
+    $('.photo-template').hide();
   } else {
-    $('section').fadeOut();
-    $('.' + selected).fadeIn();
+    $('section').hide();
+    $('.' + $selected).fadeIn();
   }
 }
-$.ajax('/data/page-1.json')
+
+function appendToSelectMenu(keyword) {
+  if (!keywords.includes(keyword)) {
+    keywords.push(keyword);
+  }
+}
+
+function appendToKeywordsArray() {
+  keywords.sort();
+  for (let i = 0; i < keywords.length; i++) {
+    $('select').append(`<option value="${keywords[i]}">${keywords[i]}</option>`);
+  }
+}
+
+function getData() {
+  $.ajax('/data/page-1.json')
   .then(data => {
     data.forEach((object, idx) => {
-      let gallery = new Gallery(object.image_url, object.title, object.description, object.keyword, object.horns);
-      gallery.render();
-
-      if (!keywords.includes(object.keyword)) {
-        keywords.push(object.keyword);
-      }
+      let gallery = new Gallery(object);
+      gallery.render();    
+      appendToSelectMenu(object.keyword);
     })
-    keywords.sort();
-    for (let i = 0; i < keywords.length; i++) {
-      $('select').append(`<option value="${keywords[i]}">${keywords[i]}</option>`);
-    }      
+    appendToKeywordsArray();
   });
+}
+
+$(document).ready(function() {
+  $('select').on('change', displayImages);
+  getData();  
 });
