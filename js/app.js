@@ -1,6 +1,7 @@
 'use strict';
 
 let keywords = [];
+let titleArr = [];
 
 function Creature(object) {
   this.url = object.image_url;
@@ -8,6 +9,7 @@ function Creature(object) {
   this.description = object.description;
   this.keyword = object.keyword;
   this.horns = object.horns;
+
 }
 
 function displayImages() {
@@ -21,13 +23,13 @@ function displayImages() {
   }
 }
 
-function appendToSelectMenu(keyword) {
+function appendToKeywordsArray(keyword) {
   if (!keywords.includes(keyword)) {
     keywords.push(keyword);
   }
 }
 
-function appendToKeywordsArray() {
+function appendToSelectMenu() {
   keywords.sort();
   $('select').empty();
   $('select').append(`<option value="default">Filter by Keyword</option>`);
@@ -36,11 +38,52 @@ function appendToKeywordsArray() {
   }
 }
 
-function renderCreatures(object, sourceID, target) {
+function renderCreatures(creature, sourceID, target) {
   let $target = $(target);
-  let templateMarkUp = $(sourceID).html();
-  let newMarkup = Mustache.render(templateMarkUp, object)
+  let $templateMarkUp = $(sourceID).html();
+  let newMarkup = Mustache.render($templateMarkUp, creature)
   $target.append(newMarkup);
+}
+
+function appendToTitlesArray(title) {
+  titleArr.push(title);
+  titleArr.sort();
+}
+
+function sortByTittle () {
+  let $radioTitle = $("input[value='byTitle']:checked").val();
+  if ($radioTitle) {
+    $('section').hide();
+    for (let x = 0; x < titleArr.length; x++) {
+      let xyz = titleArr[x];
+      console.log(titleArr[x]);
+      console.log($('section').hasClass(xyz))
+      $('section').hasClass(xyz).fadeIn();
+      // $('.' + xyz).fadeIn();
+
+      // console.log(xyz);
+     
+
+    // $('section').data(`${xyz}`).fadeIn();
+    }
+    
+    // titleArr.forEach((title, idx) => {
+    //   console.log('Am I here?')
+    //   console.log($(this).title);
+    //   $('section').hide();
+    //   $('.' + title).fadeIn();
+
+
+      // if (title === $(this).title) {
+      //   console.log('what about here')
+      //   console.log($(this).title);
+      //   renderCreatures(title, "#creatures-template", ".targets");
+      // }
+      
+    // })
+    // $('h1').append(`Hi this is something`);
+  }
+  
 }
 
 function getData(dataFile) {
@@ -48,10 +91,12 @@ function getData(dataFile) {
   .then(data => {
     data.forEach((object, idx) => {
       let gallery = new Creature(object);
+      appendToKeywordsArray(object.keyword);
+      appendToTitlesArray(object.title);
       renderCreatures(gallery, "#creatures-template", ".targets");
-      appendToSelectMenu(object.keyword);
+      // gallery.sort(object.title);
     })
-    appendToKeywordsArray();
+    appendToSelectMenu();
   });
 }
 
@@ -68,6 +113,9 @@ $(document).ready(function() {
   })
   $('#pageTwo').on('click', function() {
     renderPage('data/page-2.json');
+  })
+  $("input[value='byTitle']").on('click', function() {
+    sortByTittle();
   })
   renderPage('data/page-1.json');
 });
