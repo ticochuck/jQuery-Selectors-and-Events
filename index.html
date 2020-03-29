@@ -5,34 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script id="page-1-template" type="x-tmpl-mustache">
+    <script id="creatures-template" type="x-tmpl-mustache">
       <section class="{{keyword}}"> 
         <h2>{{title}}</h2>
         <img src="{{url}}" alt="{{title}}">
         <p>{{description}}</p>  
       </section>
     </script>
-      
-    <!-- <sript id="page-2-template" type="x-tmpl-mustache">
-      <h2></h2>
-      <img src="" alt="">
-      <p></p>
-    </script> -->
-      
-
+  
   </head>
   <body>
     <header>
       <h1>The Gallery Of Horns</h1>
-      <filter>Sort by Horns</filter>
-      <filter>Sort by Name</filter>
+      <form>
+        <input type="radio" id="byHorns" name="sort" value="byHorns"></input>
+        <label for="byHorns">Sort by Horns</label>
+        <input type="radio" id="byName" name="sort" value="byName"></input>
+        <label for="byName">Sort by Name</label>
+      </form>
       <select>
         <option value="default">Filter by Keyword</option>
       </select>
     </header>
     <main class="targets">
-      <!-- <section class="photo-template">
-      </section> -->
+      <div>
+        <span id="pageOne">Page 1</span> 
+        <span id="pageTwo">Page 2</span> 
+      </div>
     </main>
     <footer> 
       &copy; 2020 Code Fellows | Chuck li Villalobos

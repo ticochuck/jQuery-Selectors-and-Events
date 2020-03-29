@@ -1,6 +1,6 @@
 'use strict';
 
-const keywords = [];
+let keywords = [];
 
 function Creature(object) {
   this.url = object.image_url;
@@ -29,6 +29,8 @@ function appendToSelectMenu(keyword) {
 
 function appendToKeywordsArray() {
   keywords.sort();
+  $('select').empty();
+  $('select').append(`<option value="default">Filter by Keyword</option>`);
   for (let i = 0; i < keywords.length; i++) {
     $('select').append(`<option value="${keywords[i]}">${keywords[i]}</option>`);
   }
@@ -41,21 +43,32 @@ function renderCreatures(object, sourceID, target) {
   $target.append(newMarkup);
 }
 
-function getData() {
-  $.ajax('data/page-1.json')
+function getData(dataFile) {
+  $.ajax(dataFile)
   .then(data => {
     data.forEach((object, idx) => {
       let gallery = new Creature(object);
-      // gallery.render();
-      renderCreatures(gallery, "#page-1-template", ".targets");
-      // renderCreatures(gallery, "#page-2-template", ".targets");
+      renderCreatures(gallery, "#creatures-template", ".targets");
       appendToSelectMenu(object.keyword);
     })
     appendToKeywordsArray();
   });
 }
 
+function renderPage(dataFile) {
+  keywords = [];
+  $('section').remove();
+  getData(dataFile);
+}
+
 $(document).ready(function() {
   $('select').on('change', displayImages);
-  getData();  
+  $('#pageOne').on('click', function() {
+    renderPage('data/page-1.json');
+  })
+  $('#pageTwo').on('click', function() {
+    renderPage('data/page-2.json');
+  })
+  renderPage('data/page-1.json');
 });
+
