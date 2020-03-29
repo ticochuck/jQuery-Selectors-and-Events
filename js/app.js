@@ -2,6 +2,8 @@
 
 let keywords = [];
 let titleArr = [];
+let allInfo = [];
+let hornArr = [];
 
 function Creature(object) {
   this.url = object.image_url;
@@ -9,7 +11,7 @@ function Creature(object) {
   this.description = object.description;
   this.keyword = object.keyword;
   this.horns = object.horns;
-
+  allInfo.push(this);
 }
 
 function displayImages() {
@@ -54,36 +56,26 @@ function sortByTittle () {
   let $radioTitle = $("input[value='byTitle']:checked").val();
   if ($radioTitle) {
     $('section').hide();
-    for (let x = 0; x < titleArr.length; x++) {
-      let xyz = titleArr[x];
-      console.log(titleArr[x]);
-      console.log($('section').hasClass(xyz))
-      $('section').hasClass(xyz).fadeIn();
-      // $('.' + xyz).fadeIn();
-
-      // console.log(xyz);
-     
-
-    // $('section').data(`${xyz}`).fadeIn();
+    for (let x = 0; x < allInfo.length; x++) {
+      let xyz = allInfo[x];
+      if (xyz === $('section').title) {}
+        // renderCreatures(allInfo[x], "#creatures-template", ".creaturesClass");
+        $('section').fadeIn();
     }
-    
-    // titleArr.forEach((title, idx) => {
-    //   console.log('Am I here?')
-    //   console.log($(this).title);
-    //   $('section').hide();
-    //   $('.' + title).fadeIn();
-
-
-      // if (title === $(this).title) {
-      //   console.log('what about here')
-      //   console.log($(this).title);
-      //   renderCreatures(title, "#creatures-template", ".targets");
-      // }
-      
-    // })
-    // $('h1').append(`Hi this is something`);
   }
-  
+}
+ 
+function sortByHorns () {
+  let $radioTitle = $("input[value='byHorns']:checked").val();
+  if ($radioTitle) {
+    $('section').hide();
+    allInfo.sort();
+    for (let x = 0; x < allInfo.length; x++) {
+      let xyz = allInfo[x].horns;
+      // renderCreatures(allInfo[x], "#creatures-template", ".creaturesClass")
+      $('section').fadeIn();
+    }
+  }
 }
 
 function getData(dataFile) {
@@ -93,7 +85,7 @@ function getData(dataFile) {
       let gallery = new Creature(object);
       appendToKeywordsArray(object.keyword);
       appendToTitlesArray(object.title);
-      renderCreatures(gallery, "#creatures-template", ".targets");
+      renderCreatures(gallery, "#creatures-template", ".creaturesClass");
       // gallery.sort(object.title);
     })
     appendToSelectMenu();
@@ -117,6 +109,8 @@ $(document).ready(function() {
   $("input[value='byTitle']").on('click', function() {
     sortByTittle();
   })
+  $("input[value='byHorns']").on('click', function() {
+    sortByHorns();
+  })
   renderPage('data/page-1.json');
 });
-
