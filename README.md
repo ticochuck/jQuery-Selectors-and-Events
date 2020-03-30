@@ -203,6 +203,8 @@ Write a regular expression pattern to create a fuzzy search so that the results 
 
 - https://stackoverflow.com/questions/743994/how-do-i-select-an-element-in-jquery-by-using-a-variable-for-the-id 
 
+- https://stackoverflow.com/questions/5503900/how-to-sort-an-array-of-objects-with-jquery-or-javascript
+
 # Author 
 - Chuck Li Villalobos
 
