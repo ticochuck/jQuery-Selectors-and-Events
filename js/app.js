@@ -71,40 +71,34 @@ function renderSortedItems() {
   }
 }
 
-
+// sort based on radio button 
 function sortbyTitleOrHorns () {
-  let $radioTitle = $("input[value='byTitle']:checked").val();
-  if ($radioTitle) {
-    allInfo.sort(byTitle);
-  } else {
+  let $radioHorns = $("input[value='byHorns']:checked").val();
+  if ($radioHorns) {
     allInfo.sort(byHorns);
+  } else {
+    allInfo.sort(byTitle);
   }
   renderSortedItems();
 }
- 
-// function sortByHorns () {
-//   let $radioHorns = $("input[value='byHorns']:checked").val();
-//   if ($radioHorns) {
-//     allInfo.sort(byHorns);
-//     renderSortedItems();
-//   }
-// }
 
+// parse JSON data and creates new objects and shows initial page
+// creatures are display sorted by title by default
 function getData(dataFile) {
   allInfo = [];
   $.ajax(dataFile)
   .then(data => {
     data.forEach((object, idx) => {
-      let gallery = new Creature(object);
+      new Creature(object);
+      sortbyTitleOrHorns()
       appendToKeywordsArray(object.keyword);
-      renderCreatures(gallery, "#creatures-template", ".creaturesClass");
     })
     appendToSelectMenu();
   });
 }
 
+//clears page when rendered
 function renderPage(dataFile) {
-  $("input:radio").attr("checked", false);
   keywords = [];
   $('section').remove();
   getData(dataFile);
