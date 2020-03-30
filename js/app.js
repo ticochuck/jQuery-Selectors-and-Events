@@ -1,9 +1,7 @@
 'use strict';
 
 let keywords = [];
-let titleArr = [];
-let allInfo = [];
-let hornArr = [];
+let allInfo = []; 
 
 function Creature(object) {
   this.url = object.image_url;
@@ -14,6 +12,7 @@ function Creature(object) {
   allInfo.push(this);
 }
 
+//display images based on keyword
 function displayImages() {
   let $selected = $(this).val();
   if ($selected === 'default') {
@@ -25,12 +24,14 @@ function displayImages() {
   }
 }
 
+//append unique keywords to keywords array
 function appendToKeywordsArray(keyword) {
   if (!keywords.includes(keyword)) {
     keywords.push(keyword);
   }
 }
 
+// append to select meny from keywords array
 function appendToSelectMenu() {
   keywords.sort();
   $('select').empty();
@@ -40,6 +41,7 @@ function appendToSelectMenu() {
   }
 }
 
+// render creatures to the DOM 
 function renderCreatures(creature, sourceID, target) {
   let $target = $(target);
   let $templateMarkUp = $(sourceID).html();
@@ -47,52 +49,62 @@ function renderCreatures(creature, sourceID, target) {
   $target.append(newMarkup);
 }
 
-function appendToTitlesArray(title) {
-  titleArr.push(title);
-  titleArr.sort();
+// sort by title ascending
+function byTitle(a,b) {
+  var aName = a.title.toLowerCase();
+  var bName = b.title.toLowerCase(); 
+  return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }
 
-function sortByTittle () {
+// sort by number of horns - higher to lower
+function byHorns(a,b) {
+  var aName = a.horns
+  var bName = b.horns;
+  return (bName - aName);
+}
+
+//render sorted creatures to the DOM
+function renderSortedItems() {
+  $('section').remove();
+  for (let x = 0; x < allInfo.length; x++) {
+    renderCreatures(allInfo[x], "#creatures-template", ".creaturesClass");
+  }
+}
+
+
+function sortbyTitleOrHorns () {
   let $radioTitle = $("input[value='byTitle']:checked").val();
   if ($radioTitle) {
-    $('section').hide();
-    for (let x = 0; x < allInfo.length; x++) {
-      let xyz = allInfo[x];
-      if (xyz === $('section').title) {}
-        // renderCreatures(allInfo[x], "#creatures-template", ".creaturesClass");
-        $('section').fadeIn();
-    }
+    allInfo.sort(byTitle);
+  } else {
+    allInfo.sort(byHorns);
   }
+  renderSortedItems();
 }
  
-function sortByHorns () {
-  let $radioTitle = $("input[value='byHorns']:checked").val();
-  if ($radioTitle) {
-    $('section').hide();
-    allInfo.sort();
-    for (let x = 0; x < allInfo.length; x++) {
-      let xyz = allInfo[x].horns;
-      // renderCreatures(allInfo[x], "#creatures-template", ".creaturesClass")
-      $('section').fadeIn();
-    }
-  }
-}
+// function sortByHorns () {
+//   let $radioHorns = $("input[value='byHorns']:checked").val();
+//   if ($radioHorns) {
+//     allInfo.sort(byHorns);
+//     renderSortedItems();
+//   }
+// }
 
 function getData(dataFile) {
+  allInfo = [];
   $.ajax(dataFile)
   .then(data => {
     data.forEach((object, idx) => {
       let gallery = new Creature(object);
       appendToKeywordsArray(object.keyword);
-      appendToTitlesArray(object.title);
       renderCreatures(gallery, "#creatures-template", ".creaturesClass");
-      // gallery.sort(object.title);
     })
     appendToSelectMenu();
   });
 }
 
 function renderPage(dataFile) {
+  $("input:radio").attr("checked", false);
   keywords = [];
   $('section').remove();
   getData(dataFile);
@@ -107,10 +119,10 @@ $(document).ready(function() {
     renderPage('data/page-2.json');
   })
   $("input[value='byTitle']").on('click', function() {
-    sortByTittle();
+    sortbyTitleOrHorns();
   })
   $("input[value='byHorns']").on('click', function() {
-    sortByHorns();
+    sortbyTitleOrHorns();
   })
   renderPage('data/page-1.json');
 });
